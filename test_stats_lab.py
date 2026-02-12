@@ -1,3 +1,18 @@
+import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+
+from stats_lab import (
+    normal_histogram,
+    uniform_histogram,
+    bernoulli_histogram,
+    sample_mean,
+    sample_variance,
+    order_statistics,
+    sample_covariance,
+    covariance_matrix
+)
+
 # Question 1 – Normal (10 pts)
 def test_q1_normal():
     np.random.seed(0)
