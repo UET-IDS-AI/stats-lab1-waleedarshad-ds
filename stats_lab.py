@@ -1,94 +1,111 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-# -----------------------------------
-# Question 1 – Generate & Plot Histograms (and return data)
-# -----------------------------------
+# Histogram____________________________________________________________
 
 def normal_histogram(n):
-    """
-    Generate n samples from Normal(0,1),
-    plot a histogram with 10 bins (with labels + title),
-    and return the generated data.
-    """
-    pass
+    data = np.random.normal(0, 1, n)
+    plt.hist(data, bins=10)
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.title("Histogram of Normal(0,1)")
+    plt.show()
+    return data
 
 
 def uniform_histogram(n):
-    """
-    Generate n samples from Uniform(0,10),
-    plot a histogram with 10 bins (with labels + title),
-    and return the generated data.
-    """
-    pass
+    data = np.random.uniform(0, 10, n)
+    plt.hist(data, bins=10)
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.title("Histogram of Uniform(0,10)")
+    plt.show()
+    return data
 
 
 def bernoulli_histogram(n):
-    """
-    Generate n samples from Bernoulli(0.5),
-    plot a histogram with 10 bins (with labels + title),
-    and return the generated data.
-    """
-    pass
+    data = np.random.binomial(1, 0.5, n)
+    plt.hist(data, bins=10)
+    plt.xlabel("Value")
+    plt.ylabel("Frequency")
+    plt.title("Histogram of Bernoulli(0.5)")
+    plt.show()
+    return data
 
-
-# -----------------------------------
-# Question 2 – Sample Mean & Variance
-# -----------------------------------
+# Sample Mean & Variable__________________________________________________
 
 def sample_mean(data):
-    """
-    Compute sample mean.
-    """
-    pass
+    return np.mean(data)
 
 
 def sample_variance(data):
-    """
-    Compute sample variance using n-1 denominator.
-    """
-    pass
+    n = len(data)
+    mean = np.mean(data)
+    # n-1 in denominat
+    return np.sum((data - mean) ** 2) / (n - 1)   
 
+#  Order Statistics___________________________________________________
+# Returns (min, max, median)__________________________________________
 
-# -----------------------------------
-# Question 3 – Order Statistics
-# -----------------------------------
 
 def order_statistics(data):
-    """
-    Return:
-    - min
-    - max
-    - median
-    - 25th percentile (Q1)
-    - 75th percentile (Q3)
+    data_sorted = np.sort(data)
 
-    Use a consistent quartile definition. The tests for the fixed
-    dataset [5,1,3,2,4] expect Q1=2 and Q3=4.
-    """
-    pass
+    minimum = np.min(data_sorted)
+    maximum = np.max(data_sorted)
+    median = np.median(data_sorted)
 
+# Using percentile __________________________________________________
+    q1 = np.percentile(data_sorted, 25)
+    q3 = np.percentile(data_sorted, 75)
 
-# -----------------------------------
-# Question 4 – Sample Covariance
-# -----------------------------------
+    return (minimum, maximum, median, q1, q3)
+
+# Sample Covariance (n-1 denominator)__________________________________
+
 
 def sample_covariance(x, y):
-    """
-    Compute sample covariance using n-1 denominator.
-    """
-    pass
+    n = len(x)
+    mean_x = np.mean(x)
+    mean_y = np.mean(y)
+
+    return np.sum((x - mean_x) * (y - mean_y)) / (n - 1)
 
 
-# -----------------------------------
-# Question 5 – Covariance Matrix
-# -----------------------------------
+
+#  Covariance Matrix (2×2)__________________________________________
+
 
 def covariance_matrix(x, y):
-    """
-    Return 2x2 covariance matrix:
-        [[var(x), cov(x,y)],
-         [cov(x,y), var(y)]]
-    """
-    pass
+    var_x = sample_variance(x)
+    var_y = sample_variance(y)
+    cov_xy = sample_covariance(x, y)
+
+    return np.array([
+        [var_x, cov_xy],
+        [cov_xy, var_y]
+    ])
+
+# Example Test Run_________________________________________________
+
+if __name__ == "__main__":
+
+    # Q1 Example:::::::::::::::::::::::::::::::
+    data1 = normal_histogram(1000)
+    data2 = uniform_histogram(1000)
+    data3 = bernoulli_histogram(1000)
+
+    # Q2:::::::::::::::::::::::::::::::::::::
+    print("Mean:", sample_mean(data1))
+    print("Variance:", sample_variance(data1))
+
+    # Q3:::::::::::::::::::::::::::::::::::::
+    test_data = np.array([5,1,3,2,4])
+    print("Order Stats (min, max, median, Q1, Q3):", order_statistics(test_data))
+
+    # Q4:::::::::::::::::::::::::::::::::::::
+    x = np.array([1,2,3,4,5])
+    y = np.array([2,4,6,8,10])
+    print("Sample Covariance:", sample_covariance(x, y))
+
+    # Q5::::::::::::::::::::::::::::::::::::::
+    print("Covariance Matrix:\n", covariance_matrix(x, y))
