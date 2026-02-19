@@ -85,27 +85,3 @@ def covariance_matrix(x, y):
         [cov_xy, var_y]
     ])
 
-# Example Test Run_________________________________________________
-
-if __name__ == "__main__":
-
-    # Q1 Example:::::::::::::::::::::::::::::::
-    data1 = normal_histogram(1000)
-    data2 = uniform_histogram(1000)
-    data3 = bernoulli_histogram(1000)
-
-    # Q2:::::::::::::::::::::::::::::::::::::
-    print("Mean:", sample_mean(data1))
-    print("Variance:", sample_variance(data1))
-
-    # Q3:::::::::::::::::::::::::::::::::::::
-    test_data = np.array([5,1,3,2,4])
-    print("Order Stats (min, max, median, Q1, Q3):", order_statistics(test_data))
-
-    # Q4:::::::::::::::::::::::::::::::::::::
-    x = np.array([1,2,3,4,5])
-    y = np.array([2,4,6,8,10])
-    print("Sample Covariance:", sample_covariance(x, y))
-
-    # Q5::::::::::::::::::::::::::::::::::::::
-    print("Covariance Matrix:\n", covariance_matrix(x, y))
